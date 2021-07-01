@@ -1,6 +1,7 @@
 library(usethis)
+git_sitrep()
 use_git()
-
+use_github()
 
 
 library(tidyverse)
@@ -72,3 +73,20 @@ write_xlsx(imdb_excel, path = "imdb.xlsx")
 
 imdb_rds <- readr::read_rds("material_do_curso/dados/imdb.rds") #lendo o arquivo
 readr::write_rds(imdb_rds, file = "material_do_curso/dados/imdb_rds.rds") # escrevendo/salvando 
+
+
+#importando dados do GSheets
+
+
+install.packages("googlesheets4")
+library(googlesheets4)
+
+url <- "https://docs.google.com/spreadsheets/d/1y3oRSspAKQzLyAx2F3cpj89RiTI88wVf-hYZb4oRiuA/edit?usp=sharing"
+
+dados_formulario <- read_sheet(url)
+
+install.packages("janitor")
+library(janitor)
+
+dados_limpos <- clean_names(dados_formulario)
+
