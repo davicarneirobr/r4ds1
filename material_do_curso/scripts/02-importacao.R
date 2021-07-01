@@ -1,3 +1,8 @@
+library(usethis)
+use_git()
+
+
+
 library(tidyverse)
 
 # Caminhos até o arquivo --------------------------------------------------
