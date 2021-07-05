@@ -1,10 +1,17 @@
+
+
+library(usethis)
+git_sitrep()
+use_git()
+use_github()
+
 # Pacotes -----------------------------------------------------------------
 
 library(tidyverse)
 
 # Base de dados -----------------------------------------------------------
 
-imdb <- read_rds("dados/imdb.rds")
+imdb <- read_rds("material_do_curso/dados/imdb.rds")
 
 # Jeito de ver a base -----------------------------------------------------
 
