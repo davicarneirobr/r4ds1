@@ -41,12 +41,19 @@ imdb
 
 select(imdb, titulo, ano, orcamento)
 
+titulos.dos.filmes <- select(imdb, titulo)
+titulos.dos.filmes$titulo
+
 select(imdb, titulo:cor)
 
 # Funções auxiliares
 
 select(imdb, starts_with("ator"))
 select(imdb, contains("to"))
+
+#starts_with é começa com para o NOME da coluna, e não o que tá nas células numa coluna (o contains também)
+
+ator <- select(imdb, titulo, starts_with("ator_"))
 
 # Principais funções auxiliares
 
@@ -58,16 +65,26 @@ select(imdb, contains("to"))
 
 select(imdb, -starts_with("ator"), -titulo, -ends_with("s"))
 
+select(imdb, -starts_with("ator"), -titulo)
+
+#Selecionando colunas por posição da coluna
+
+select(imdb, 1,2)
+#no R se comeca com 1
+
 # arrange -----------------------------------------------------------------
 
 # Ordenando linhas de forma crescente de acordo com 
 # os valores de uma coluna
 
 arrange(imdb, orcamento)
+arrange(imdb, receita, na.rm=TRUE)
+arrange(imdb, receita)
 
 # Agora de forma decrescente
 
 arrange(imdb, desc(orcamento))
+arrange(imdb, desc(receita))
 
 # Ordenando de acordo com os valores 
 # de duas colunas
@@ -219,7 +236,7 @@ imdb %>% filter(orcamento < 100000, receita > 1000000)
 imdb %>% filter(receita - orcamento > 0)
 
 ## Lucraram mais de 500 milhões OU têm nota muito alta
-imdb %>% filter(receita - orcamento > 500000000 | nota_imdb > 9)
+imdb %>% filter(receita - orcamento > 500000000, nota_imdb > 9) 
 
 # O operador %in%
 imdb %>% filter(ator_1 %in% c('Angelina Jolie Pitt', "Brad Pitt"))
@@ -232,6 +249,8 @@ imdb %>% filter(!diretor %in% c("Quentin Tarantino", "Steven Spielberg"))
 df <- tibble(x = c(1, NA, 3))
 
 filter(df, x > 1)
+
+#filtrando com os NAs aparecendo
 filter(df, is.na(x) | x > 1)
 
 # Filtrando texto sem correspondência exata
@@ -374,3 +393,50 @@ band_instruments %>% right_join(band_members)
 band_instruments %>% inner_join(band_members)
 band_instruments %>% full_join(band_members)
 
+#o starts_with so funciona dentro do select
+#mas o startsWith tem como
+
+startsWith(c("casa", "predio", "escola"), "c")
+
+
+#criar tabela com os 10 maiores orcamentos
+
+
+library(dplyr)
+imdb %>% 
+  select(titulo, orcamento) %>% 
+  arrange(desc(orcamento)) %>% 
+  slice(1:10)
+
+#o slice corta a tabela, diferente do filter que filtra fazendo um teste lógico
+
+#existe tambem o slice_min para selecionar os menores
+
+imdb %>% slice_min(order_by = orcamento, n= 10)
+
+#selecionando os maiores
+
+imdb %>% slice_max(order_by = orcamento, n=10) %>% arrange(orcamento)
+
+#podemos pedir uma proporcao, ou seja, os 30% maiores
+
+imdb %>% slice_max(order_by = orcamento, prop = 0.3)
+
+# e os empates (nesse exemplo tirando os empatados)
+
+imdb %>% slice_max(order_by = orcamento, prop=0.3, with_ties=FALSE)
+
+#colocando um tipo de coluna primeiro e depois as outras (exemplo, primeiro o orcamento e as outras depois)
+imdb %>% select(orcamento, everything()) 
+
+#OU
+
+imdb %>% relocate(orcamento) #colocando o orcamento primeiro depois o resto
+imdb %>% relocate(orcamento,ano) # colocando o orcamento e o ano primeiro depois o resto
+
+# testando se o slice funciona com ordem alfabetica (col. de texto)
+
+imdb %>% slice_max(order_by = titulo, n=10) #nesse caso inicia de tras para frente
+
+#se tentarmos colocar o min, vai iniciar em A ou em numeros (como ocorre se fizermos com o imdb)
+imdb %>% filter(!is.na(orcamento))
