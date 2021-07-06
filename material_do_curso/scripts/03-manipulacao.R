@@ -440,3 +440,8 @@ imdb %>% slice_max(order_by = titulo, n=10) #nesse caso inicia de tras para fren
 
 #se tentarmos colocar o min, vai iniciar em A ou em numeros (como ocorre se fizermos com o imdb)
 imdb %>% filter(!is.na(orcamento))
+
+#tirar o NA da base toda
+
+imdb %>% na.omit()
+imdb %>% na.exclude()
