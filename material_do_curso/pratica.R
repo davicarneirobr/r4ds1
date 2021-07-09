@@ -71,8 +71,8 @@ left_join(ranking_lucro, ranking_nota, by = "titulo") %>%  View()
 #pegar o filme de maior lucro para cada diretro
 
 
-imdb %>%  mutate(lucro=receita-orcamento) %>% group_by(diretor) %>% filter(lucro==max(lucro), n()>=2) %>% select(titulo, diretor, lucro) %>%  arrange(desc(lucro))
-
+imdb %>%  mutate(lucro=receita-orcamento) %>% group_by(diretor) %>% filter(lucro==max(lucro), n()>=2) %>% select(titulo, diretor, lucro) %>%  arrange(desc(lucro)) %>% View()
+ 
 
 
 
