@@ -51,8 +51,30 @@ library(dplyr)
 library(magrittr)
 
 
-imdc <- readr::read_rds("material_do_curso/dados/imdb.rds")
+imdb <- readr::read_rds("material_do_curso/dados/imdb.rds")
 
-imdb %>% mutate(lucro=receita-orcamento) %>% slice_max(lucro, n=10) %>% arrange(desc(lucro)) %>% mutate(ranking=1:n()) %>% select(ranking, titulo, lucro)
+ranking_lucro <- imdb %>% 
+  mutate(lucro=receita-orcamento) %>% 
+  slice_max(lucro, n=50) %>% 
+  arrange(desc(lucro)) %>% 
+  mutate(ranking=1:n()) %>% #criando ranking - colocando os números em uma coluna que criamos pelo mutate chamada ranking
+  select(ranking, titulo, lucro) #selecionando colunas da tabela imdb já existente
+
+ranking_nota <- imdb %>% slice_max(nota_imdb, n=50) %>% arrange(desc(nota_imdb)) %>% mutate(ranking_nota=1:n()) %>% select(ranking_nota, titulo, nota_imdb)
+
+left_join(ranking_lucro, ranking_nota, by = "titulo") %>%  View()
+
+
+
+#group_by com outros verbos
+
+#pegar o filme de maior lucro para cada diretro
+
+
+imdb %>%  mutate(lucro=receita-orcamento) %>% group_by(diretor) %>% filter(lucro==max(lucro), n()>=2) %>% select(titulo, diretor, lucro) %>%  arrange(desc(lucro))
+
+
+
+
 
 
