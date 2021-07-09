@@ -297,7 +297,9 @@ imdb %>% mutate(
   houve_lucro = ifelse(lucro > 0, "Sim", "Não")
 ) %>% 
   View()
+#exportar
 
+write_rds(objeto, "caminho")#para rds
 # summarise ---------------------------------------------------------------
 
 # Sumarizando uma coluna
@@ -347,7 +349,8 @@ n_distinct()
 
 imdb %>% group_by(cor)
 
-# Agrupando e sumarizando
+# Agrupando e sumarizando - ele vai criar um tibble com linhas por cor e colunas com a media do orcamento, media da receita, quantidade de filmes por cor 
+#e quantidades de diretores por cor
 imdb %>% 
   group_by(cor) %>% 
   summarise(
@@ -385,6 +388,9 @@ imdb %>%
   left_join(depara_cores, by = c("cor")) %>% 
   select(cor, cor_em_ptBR) %>% 
   View()
+
+depara_cores <- tibble(
+  cor=c("Color", "Black and White"), cor_em_ptBR=c("colorido", "preto e branco"))
 
 # OBS: existe uma família de joins
 
