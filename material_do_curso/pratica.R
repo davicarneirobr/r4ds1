@@ -45,3 +45,14 @@ estruturando <- read_excel("material_do_curso/dados/imdb_nao_estruturada.xlsx",
 nomes_colunas <- read_excel("material_do_curso/dados/imdb_nao_estruturada.xlsx", sheet="Sheet1")
 
 
+#---------------------------------------------
+
+library(dplyr)
+library(magrittr)
+
+
+imdc <- readr::read_rds("material_do_curso/dados/imdb.rds")
+
+imdb %>% mutate(lucro=receita-orcamento) %>% slice_max(lucro, n=10) %>% arrange(desc(lucro)) %>% mutate(ranking=1:n()) %>% select(ranking, titulo, lucro)
+
+
