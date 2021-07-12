@@ -1,7 +1,6 @@
 
 
 library(usethis)
-git_sitrep()
 use_git()
 use_github()
 # Carregar pacotes --------------------------------------------------------
