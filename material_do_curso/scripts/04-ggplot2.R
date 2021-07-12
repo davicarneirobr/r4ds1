@@ -38,6 +38,9 @@ imdb %>%
 # Observe como cada elemento é uma camada do gráfico.
 # Agora colocamos a camada da linha antes da camada
 # dos pontos.
+
+#y=ax+b, sendo que intercept=b'; slope (inclinação)=a
+
 imdb %>%
   ggplot() +
   geom_abline(intercept = 0, slope = 1, color = "red") +
