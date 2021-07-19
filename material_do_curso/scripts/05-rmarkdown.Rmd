@@ -43,6 +43,8 @@ A seguir, apresentamos uma lista dos principais marcadores utilizados para forma
 
 - para deixar o texto com `esse formato` (formato de código), apenas coloque o texto entre duas crases.
 
+$$\alpha + \beta = \gamma $$
+
 
 ## Chunks: escrevendo nosso código de R
 
