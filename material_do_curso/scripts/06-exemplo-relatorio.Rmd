@@ -16,6 +16,8 @@ library(tidyverse)
 imdb <- read_rds("../dados/imdb.rds")
 ```
 
+<!-- quebra de pagina -->
+\newpage
 
 O objetivo desta análise é responder a pergunta *Qual o melhor ator de comédia?*
 
